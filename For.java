@@ -66,6 +66,16 @@ public class For {
             }
         }
 
-      
+      //quinto ejercicio 
+      System.out.println("Este es el quinto ejercicio <3");
+
+      for (int love=1 ; love <=10 ; love++ ){
+System.out.println("Love <3");
+
+      }
+
+
+
+
     }
 }
