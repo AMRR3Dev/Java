@@ -5,6 +5,35 @@ import java.util.Scanner;
 
 public class Estacionamiento {
 
+    // Regla de negocio 1: Si la hora de entrada es antes de las 14:00, el precio se cobra a la mitad
+    public static double precioMitad(double deuda, LocalTime horaEntrada) {
+        if (horaEntrada.isBefore(LocalTime.of(14, 0))) {
+            deuda = deuda / 2;
+            System.out.println("Descuento aplicado: entrada antes de las 2pm. Precio reducido a la mitad.");
+        }
+        return deuda;
+    }
+
+    // Regla de negocio 2: Si el usuario tiene membresía, se aplica un descuento del 20% al precio final
+    public static double aplicarDescuentoMembresia(double deuda, Scanner scanner) {
+        System.out.print("¿Tiene membresía? (1 = Sí / 2 = No): ");
+        int respuesta = scanner.nextInt();
+        if (respuesta == 1) {
+            deuda = deuda * 0.80;
+            System.out.println("Descuento de membresía aplicado: 20% de descuento.");
+        }
+        return deuda;
+    }
+
+    // Regla de negocio 3: El precio límite del estacionamiento es $200 pesos
+    public static double aplicarLimitePrecio(double deuda) {
+        if (deuda > 200) {
+            System.out.println("El precio ha sido limitado al máximo de $200 pesos.");
+            deuda = 200;
+        }
+        return deuda;
+    }
+
     public static void main(String[] args) {
 
         // Inicialización del lector de entrada y formato de hora
@@ -49,14 +78,21 @@ public class Estacionamiento {
 
         // Mostrar el resumen de tiempo y deuda al usuario
         System.out.println("\nCalculo de Tiempo");
-        System.out.print("Tiempo estacionado: " + horas + " hora(s), " + minutos + " minuto(s), " +segundos+" segundo(s)\n");
-        System.out.print("Tu deuda es: $"+ deuda);
+        System.out.print("Tiempo estacionado: " + horas + " hora(s), " + minutos + " minuto(s), " + segundos + " segundo(s)\n");
+        System.out.print("Tu deuda inicial es: $" + deuda + "\n");
 
         // Si la deuda es cero, no se realiza cobro
         if (deuda == 0) {
             System.out.println("No hay cobro por menos de una hora.");
             return;
         }
+
+        // Aplicar reglas de negocio en orden
+        deuda = precioMitad(deuda, horaEntrada);
+        deuda = aplicarDescuentoMembresia(deuda, scanner);
+        deuda = aplicarLimitePrecio(deuda);
+
+        System.out.printf("Tu deuda final a pagar es: " + deuda);
 
         // Ciclo de pago: se repite hasta que la deuda esté cubierta
         do {
@@ -142,19 +178,19 @@ public class Estacionamiento {
             }
 
             // Mostrar el estado actual del pago tras cada operación
-            System.out.printf("Total pagado: $" + totalPagado + "\n");
-            System.out.printf("Deuda restante: $" + Math.max(0, deuda - totalPagado));
+            System.out.printf("Total pagado: $"+ totalPagado);
+            System.out.printf("Deuda restante: $"+ Math.max(0, deuda - totalPagado));
 
         } while (totalPagado < deuda); // Continuar hasta cubrir la deuda
 
         // Resumen final del pago
         System.out.println("\nResumen Final");
-        System.out.printf("Deuda cubierta. Pago total: $" + totalPagado + "\n");
+        System.out.printf("Deuda cubierta. Pago total: $"+ totalPagado+"\n");
 
         // Cálculo y muestra del cambio si se pagó de más
         double cambio = totalPagado - deuda;
         if (cambio > 0) {
-            System.out.printf("Su cambio es: $" + cambio + "\n");
+            System.out.printf("Su cambio es: $"+ cambio+"\n15");
         }
 
         System.out.println("Gracias por usar el estacionamiento. Hasta luego!");
