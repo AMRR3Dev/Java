@@ -17,7 +17,7 @@ public class EjemploExcepciones {
             System.out.println(texto.length());
             System.out.println("Con exito ");
         } catch (NullPointerException e) {
-            System.out.println("Objeto null ");
+
         }
 
         try {
@@ -34,6 +34,7 @@ public class EjemploExcepciones {
             int numero = Integer.parseInt("1a");
             System.out.println(numero);
         } catch (NumberFormatException e) {
+<<<<<<< HEAD
             System.out.println("Formato de numero invalido");
         }
 
@@ -45,11 +46,28 @@ public class EjemploExcepciones {
             System.err.println(e.getMessage());//        } 
             */
                    System.out.println("\nthrow");
+=======
+            System.out.println("Formato de numero invalido" );
+        }
+
+
+
+      /*  try {
+            System.out.println("\nthrow");
+            ImprimirEdad(-1);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());// TODO: handle exception
+        } */
+
+            try{
+        System.out.println("\nthrow");
+>>>>>>> bf0e9fd4191cd8dccd1b4c2ea78e95b0281c937f
             ImprimirEdad(-1);
         } catch (EdadInvalida e) {
             System.err.println(e.getMessage());
         }
 
+<<<<<<< HEAD
         // nuevo ejemplo de excepciones
         System.out.println("\naqui");
 
@@ -78,4 +96,29 @@ public class EjemploExcepciones {
         System.out.println(edad);
     }
 
+=======
+        
+
+    }
+
+    public static void ImprimirEdad (int edad) throws EdadInvalida{
+
+   /*     if(edad<0){
+            throw new IllegalArgumentException("La edad no puede ser negativa");
+        }
+        System.out.println(edad);
+    } */
+    
+        if(edad<0){
+
+            throw new EdadInvalida("La edad no puede ser negativa");
+
+        }
+        System.out.println(edad);
+    
+    
+    }
+
+
+>>>>>>> bf0e9fd4191cd8dccd1b4c2ea78e95b0281c937f
 }
